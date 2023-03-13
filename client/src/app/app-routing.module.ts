@@ -9,21 +9,31 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './services/auth.guard';
 import { AdminGuard } from './services/admin.guard';
+import { InventoryComponent } from './components/inventory/inventory.component';
 
 const routes: Routes = [
-  {path: "register", component: RegisterComponent},
-  {path: "login", component: LoginComponent},
-  {path: "kitchen", component: KitchenComponent, canActivate: [AuthGuard, AdminGuard]},
-  {path: "food/:id", component: FoodPageComponent, canActivate: [AuthGuard]},
-  {path: "order", component: OrderFormComponent, canActivate: [AuthGuard]},
-  {path: "list", component: ListComponent, canActivate: [AuthGuard]},
-  {path: "home", component: HomeComponent, canActivate: [AuthGuard]},
-  {path: '', redirectTo: "register", pathMatch: "full"},
-  {path: "**", component: HomeComponent, canActivate: [AuthGuard]}
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'kitchen',
+    component: KitchenComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
+  {
+    path: 'inventory',
+    component: InventoryComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
+  { path: 'food/:id', component: FoodPageComponent, canActivate: [AuthGuard] },
+  { path: 'order', component: OrderFormComponent, canActivate: [AuthGuard] },
+  { path: 'list', component: ListComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: '**', component: HomeComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

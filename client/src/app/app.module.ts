@@ -28,6 +28,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { InventoryComponent } from './components/inventory/inventory.component';
 const config: SocketIoConfig = { url: 'http://localhost:6789', options: {} };
 
 @NgModule({
@@ -43,7 +44,8 @@ const config: SocketIoConfig = { url: 'http://localhost:6789', options: {} };
     OrderFormComponent,
     LoginComponent,
     RegisterComponent,
-    DialogComponent
+    DialogComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,
