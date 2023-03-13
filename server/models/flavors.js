@@ -4,7 +4,6 @@ const flavorSchema = new Schema({
   name: {
     type: String,
     default: ''
-
   },
   color: {
     type: String,

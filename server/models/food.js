@@ -22,7 +22,6 @@ const foodSchema = new Schema({
     type: String,
     default: ''
   }
-
 })
 
 
