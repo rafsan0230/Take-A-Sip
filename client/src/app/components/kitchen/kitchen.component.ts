@@ -48,7 +48,7 @@ export class KitchenComponent implements OnInit {
     // setInterval(() => this.getRefreshTime(), 1000);
   }
   
-
+  
   getOrders () : void {
     this.api.getAllOrders().subscribe(orders => {
       this.savedTime = new Date();

@@ -1,5 +1,5 @@
 const { model, Schema } = require('mongoose');
-const foodSchema = require('./food');
+const {foodSchema} = require('./food');
 
 const OrderSchema = new Schema({
     id: {
@@ -30,6 +30,10 @@ const OrderSchema = new Schema({
     deletedAt: {
         type: Date,
     },
+    quantity: {
+      type: Number,
+      default : 0
+    }
 })
 
 const Order = model('Order', OrderSchema);
