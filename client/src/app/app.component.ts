@@ -8,6 +8,5 @@ import { Socket } from 'ngx-socket-io';
 })
 export class AppComponent {
   title = 'take-a-sip';
-  // constructor(private io: Socket) { }
 }
 

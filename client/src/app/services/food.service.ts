@@ -97,21 +97,13 @@ export class FoodService {
     Object.assign(foodRef,food);
     foodRef.selectedFlavor = selectedAttribute.flavor?.name
     this.listItems.push(foodRef);
-    // localStorage.setItem('list', JSON.stringify(this.listItems));
-    // localStorage.setItem('selectedItems', JSON.stringify(this.selectedAttribute));
   }
 
   getListItems() {
-    // if(localStorage.getItem('list')){
-    //   this.listItems = JSON.parse(localStorage.getItem('list') || '[]');
-    // }
     return this.listItems;
   }
   
   getSelectedItems() {
-    // if(localStorage.getItem('selectedItems')){
-    //   this.selectedAttribute = JSON.parse(localStorage.getItem('selectedItems') || '[]');
-    // }
     return this.selectedAttribute;
   }
 
@@ -125,8 +117,6 @@ export class FoodService {
 
   clearList() {
     this.listItems.length = 0;
-    // localStorage.removeItem('list');
-    // localStorage.removeItem('selectedItems');
     return this.listItems;
   }
   

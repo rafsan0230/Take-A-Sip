@@ -8,7 +8,6 @@ async function register(req, res) {
   const { email, password } = req.body;
   const user = await User.findOne({ email: email });
   if (user){
-    console.log('Got an error in the register controller')
     return res
             .status(400)
             .send({ error: '401', message: 'User already exists' });

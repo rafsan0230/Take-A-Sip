@@ -39,16 +39,14 @@ export class KitchenComponent implements OnInit {
     this.io.emit('join_room');
 
     this.io.on('kitchen_refresh', () => {
-      console.log('got orders from kitrchen')
       this.getOrders();
       this.notificationService.notifySuccess('New order arrived!','Chop Chop!')
     });
    
     this.getOrders();
-    // setInterval(() => this.getRefreshTime(), 1000);
   }
   
-  
+
   getOrders () : void {
     this.api.getAllOrders().subscribe(orders => {
       this.savedTime = new Date();
@@ -62,7 +60,6 @@ export class KitchenComponent implements OnInit {
       const ready = orders.filter(order => order.status === 'ready');
       this.ready = ready;
     });
-    console.log("hii",this.orders);
   }
 
   refresh() {

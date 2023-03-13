@@ -25,7 +25,6 @@ export class RegisterComponent implements OnInit{
   constructor(private fb: FormBuilder, private auth : AuthService, private router: Router){}
 
   ngOnInit(): void {
-  //If logged in, not letting go to register page --> redirecting to own home
     const userStr = localStorage.getItem('user');
     if (userStr) {
       const user = JSON.parse(userStr);

@@ -22,10 +22,8 @@ const corsOptions = {
 const io = new Server(server, { cors: corsOptions });
 io.on('connection', (socket) => {
   socket.on('gotNewOrder', () => {
-    console.log('got order from index.js')
     socket.to('kitchen').emit('kitchen_refresh');
   });
-  // console.log('first order');
   socket.on('join_room', () => {
     socket.join('kitchen');
   })

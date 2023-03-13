@@ -20,7 +20,6 @@ constructor(private fb: FormBuilder, private auth : AuthService, private router:
 
 ngOnInit(): void {
 
-  //If logged in, not letting go to login page --> redirecting to own home
   const userStr = localStorage.getItem('user');
   if (userStr) {
     const user = JSON.parse(userStr);
@@ -43,7 +42,6 @@ login() {
         this.auth.login(val.email, val.password).subscribe({
           next: (res: any) => {
             localStorage.setItem('accessToken', res.headers.get('authorization'));
-            console.log(res.headers.get('authorization'));
             localStorage.setItem('user', JSON.stringify(res.body.user));
             
             /*For going to page after loggin in without reload */

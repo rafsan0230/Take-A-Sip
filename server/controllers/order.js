@@ -21,17 +21,6 @@ async function getOrders(req, res) {
   }
 }
 
-// async function getOrders(req, res) {
-//   try {
-//       const orders = await Order.find({});
-//       res.status(200);
-//       res.send(orders);
-//   } catch (error) {
-//     res.status(500);
-//     console.log(error);
-//   }
-// }
-
 async function postOrder(req, res) {
   try {
     const order = await Order.create(req.body);
