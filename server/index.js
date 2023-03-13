@@ -3,6 +3,10 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const router = require("./router");
 const app = express();
+const http = require('http');
+const { Server } = require('socket.io');
+
+const server = http.createServer(app);
 
 // env variables
 require('dotenv').config();
@@ -15,6 +19,18 @@ const corsOptions = {
   exposedHeaders: 'Authorization',
 };
 
+const io = new Server(server, { cors: corsOptions });
+io.on('connection', (socket) => {
+  socket.on('gotNewOrder', () => {
+    console.log('got order from index.js')
+    socket.to('kitchen').emit('kitchen_refresh');
+  });
+  // console.log('first order');
+  socket.on('join_room', () => {
+    socket.join('kitchen');
+  })
+});
+
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(router);
@@ -22,7 +38,7 @@ app.use(router);
 (async function bootstrap() {
   try {
     await mongoose.connect(DB_URI);
-    app.listen(PORT, () => console.log(`Server is listening on port ${PORT}.`));
+    server.listen(PORT, () => console.log(`Server is listening on port ${PORT}.`));
   } catch (error) {
   }
 })();

@@ -5,12 +5,10 @@ async function getOrders(req, res) {
     console.log(req.user);
     if (req.user && req.user.usertype === 'admin') {
       const orders = await Order.find({});
-      console.log(orders);
 
       const clientOrders = orders.filter(order => order.orderfor === 'CLIENT');
       const selfOrders = orders.filter(order => order.orderfor === 'SELF');
 
-      console.log([...clientOrders, ...selfOrders]);
 
       res.status(200);
       res.send([...clientOrders, ...selfOrders]);

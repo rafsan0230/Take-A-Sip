@@ -4,6 +4,7 @@ import { FormBuilder} from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from 'src/app/services/notification.service';
 import { User } from 'src/app/interfaces/user';
+import { Socket } from 'ngx-socket-io';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class OrderFormComponent implements OnInit{
     this.user = userStr ? JSON.parse(userStr) : null;
   }
 
-  constructor(private listService: FoodService, private fb: FormBuilder,private http: HttpClient,private notificationService: NotificationService) { }
+  constructor(private listService: FoodService, private fb: FormBuilder,private http: HttpClient,private notificationService: NotificationService, private io: Socket) { }
 
   onSubmit() {
     const val = this.orderForm.value;

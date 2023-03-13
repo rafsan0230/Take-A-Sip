@@ -7,6 +7,7 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { formatDistance } from 'date-fns'
 import { NotificationService } from 'src/app/services/notification.service';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-kitchen',
@@ -28,14 +29,23 @@ export class KitchenComponent implements OnInit {
    { addSuffix: true }
   );
 
-  constructor(private api: FoodService,private route: Router,private notificationService: NotificationService){}
+  constructor(private io: Socket, private api: FoodService,private route: Router,private notificationService: NotificationService){
+    
+  }
   
   ngOnInit() : void {
     const userStr = localStorage.getItem('user');
     const user = userStr ? JSON.parse(userStr) : null;
+    this.io.emit('join_room');
+
+    this.io.on('kitchen_refresh', () => {
+      console.log('got orders from kitrchen')
+      this.getOrders();
+      this.notificationService.notifySuccess('New order arrived!','Chop Chop!')
+    });
    
     this.getOrders();
-    setInterval(() => this.getRefreshTime(), 1000);
+    // setInterval(() => this.getRefreshTime(), 1000);
   }
   
 
