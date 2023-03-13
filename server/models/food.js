@@ -2,9 +2,6 @@ const { model, Schema } = require('mongoose');
 const flavorSchema = require('./flavors');
 
 const foodSchema = new Schema({
-  id: {
-    type: Number,
-  },
   name: {
     type: String,
     required: true
