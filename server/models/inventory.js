@@ -1,14 +1,14 @@
 const { model, Schema } = require('mongoose');
 
 const inventorySchema = new Schema({
-  foodName: {
+  name: {
     type: String,
     required: true
   },
-//   foodFlavor: {
-//     type: String
-//   },
-  quantity: {
+  selectedFlavor: {
+    type: String
+  },
+  remaining: {
     type: Number,
     default: 10
   }
@@ -16,4 +16,4 @@ const inventorySchema = new Schema({
 
 const Inventory = model('Inventory', inventorySchema);
 
-module.exports = { Inventory };
+module.exports = Inventory;
