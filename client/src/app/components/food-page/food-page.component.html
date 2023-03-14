@@ -1,6 +1,6 @@
-<div class="food-page-card">
+<div class="food-page-card" *ngIf="food">
   <h2 class="food-page-card-title"> {{ food?.name }}</h2>
-  <img [src]="imageUrl" />
+  <img src="./../../../assets/tea-milk.svg" />
 
   <div class="select-card">
 
@@ -16,7 +16,9 @@
     </div>
 
     <span class="minus" (click)="minus()"><fa-icon [icon]="minusIcon"></fa-icon></span>
-    <input type="number" [(ngModel)]="food!.qty" value="1" class="qty">
+    <div *ngIf="food!.qty">
+      <input type="number" [(ngModel)]="food!.qty" value="1" class="qty">
+    </div>
     <span class="plus" (click)="plus()"><fa-icon [icon]="plusIcon"></fa-icon></span>
 
     <form [formGroup]= "noteAreaForm">

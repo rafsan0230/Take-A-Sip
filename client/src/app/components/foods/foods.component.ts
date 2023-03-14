@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Food } from 'src/app/interfaces/food';
-import { FOODS } from '../../interfaces/food-types';
+// import { FOODS } from '../../interfaces/food-types';
 
 @Component({
   selector: 'app-foods',

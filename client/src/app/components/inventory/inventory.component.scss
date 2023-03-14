@@ -1,0 +1,40 @@
+table {
+    width: 100%;
+    border-spacing: 0;
+  }
+  
+  .tbl-header {
+    background-color: white;
+    height: 9%;
+  }
+  
+  .tbl-content {
+    height: 90%;
+    overflow-x: auto;
+    margin-top: 0px;
+  }
+  
+  th {
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.95em;
+    color: #9fa2b4;
+    text-transform: uppercase;
+    border-bottom: 1px solid #dfe0eb;
+  }
+  
+  td {
+    padding: 20px 15px;
+    height: 48px;
+    text-align: left;
+    vertical-align: middle;
+    font-weight: normal;
+    font-size: 0.9em;
+    color: $dark-chocolate;
+    border-bottom: solid 1px #dfe0eb;
+  }
+  
+  r:hover {
+    background-color: #dfe0eb;
+  }

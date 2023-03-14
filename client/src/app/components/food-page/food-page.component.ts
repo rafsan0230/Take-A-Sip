@@ -16,6 +16,7 @@ import { faMinus } from "@fortawesome/free-solid-svg-icons";
   styleUrls: ["./food-page.component.scss"],
 })
 export class FoodPageComponent implements OnInit {
+  // Foods:Food[] = [];
   backIcon = faArrowLeftLong;
   plusIcon = faPlus;
   minusIcon = faMinus;
@@ -39,8 +40,9 @@ export class FoodPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.getFood();
-    console.log(this.food); // herein lies the error
+    //console.log(this.food); // herein lies the error
 
     this.setSelectedAttributes(this.food?.flavors[0]);
     if (this.selectedAttributes?.flavor) {
@@ -52,8 +54,21 @@ export class FoodPageComponent implements OnInit {
   }
 
   getFood(): void {
-    const id = Number(this.route.snapshot.paramMap.get("id"));
-    this.foodService.getFood(id).subscribe((food) => (this.food = food));
+    const id = (this.route.snapshot.paramMap.get("id"))!;
+    console.log("from url",id)
+    
+    // const getting = this.foodService.getFoods();
+    // if (getting) {
+    //   getting.subscribe((response) => {
+    //     console.log("food service",response);
+    //     this.Foods = response;
+    //   });
+    // }
+
+   this.foodService.getFood(id).subscribe((response) => {
+    console.log("food service",response);
+    this.food = response;
+  });;
   }
 
   setImageUrl(flavor: Flavor): void {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { FOODS } from '../interfaces/food-types';
+// import { FOODS } from '../interfaces/food-types';
 import { Food } from '../interfaces/food';
 import { SelectedFoodAttribute } from '../interfaces/selectedFoodAttribute';
 import { OrderList } from '../interfaces/orderlist';
@@ -15,7 +15,8 @@ import { User } from '../interfaces/user';
 export class FoodService {
 
   url = 'http://localhost:6789/orders';  
-  
+
+  foodTypes:Food[] = [];
   listItems: Food[] = [];
   selectedAttribute:  SelectedFoodAttribute[] = [];
 
@@ -75,9 +76,20 @@ export class FoodService {
     return this.http.get<Food[]>(this.foodtypeURL);
   }
 
-   getFood(id: number): Observable<Food | undefined> {
-    const food = FOODS.find(food => food.id === id);
-    return of(food);    
+  //! Previous code refactored 
+   getFood(id: string): Observable<Food> {
+    return this.http.get<Food>(this.foodtypeURL+'/'+id)
+    // return this.foodTypes;
+  }
+
+  getFoodTypes(){
+    const getting = this.getFoods();
+    if (getting) {
+      getting.subscribe((response) => {
+        console.log("food service",response);
+        this.foodTypes = response;
+      });
+    }
   }
 
  
@@ -90,7 +102,7 @@ export class FoodService {
 
   addToList(food: Food, selectedAttribute: SelectedFoodAttribute) {
   let foodRef: Food = {
-    id: 0,
+    _id: '',
     name: '',
     imageUrls: [],
     flavors: [],
