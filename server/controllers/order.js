@@ -1,4 +1,5 @@
 const Order = require('../models/order');
+const Inventory = require('../models/inventory');
 
 async function getOrders(req, res) {
   try {
@@ -24,7 +25,14 @@ async function getOrders(req, res) {
 
 async function postOrder(req, res) {
   try {
-    oldRemaining = req.body.remaining
+    const foodName = req.body.foods[0].name;
+    const flavour = req.body.foods[0].selectedFlavor;
+    const quantity = req.body.foods[0].qty;
+
+    const orderedFood = await Inventory.find({ name: foodName , selectedFlavor :  flavour });
+
+    
+
 
     const order = await Order.create(req.body);
 

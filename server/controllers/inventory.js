@@ -1,4 +1,5 @@
 const { Food } = require('../models/food');
+const Inventory = require('../models/inventory');
 
 const addFood = async (req, res, next) => {
   try {
@@ -13,6 +14,15 @@ const addFood = async (req, res, next) => {
 const getFood = async (req, res, next) => {
   try {
     const foods = await Food.find({});
+    res.status(200).send(foods);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+};
+const getInventory = async (req, res, next) => {
+  try {
+    const foods = await Inventory.find({});
     res.status(200).send(foods);
   } catch (err) {
     console.log(err);
@@ -43,4 +53,4 @@ const updateFood = async (req, res, next) => {
   }
 };
 
-module.exports = { addFood, getFood, updateFood, getFoodById };
+module.exports = { addFood, getFood, updateFood, getFoodById, getInventory };
