@@ -9,7 +9,7 @@ const foodSchema = new Schema({
   imageUrls: [String],
   flavors: [flavorSchema],
   selectedFlavor: {
-    type: String
+   type: String
   },
   qty: {
     type: Number,
