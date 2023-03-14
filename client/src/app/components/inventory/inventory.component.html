@@ -6,11 +6,11 @@
       <th>Quantity Left</th>
     </thead>
     <tbody>
-      <!-- <tr *ngFor="let food of foods">
-        <td>{{ food.name }}</td>
-        <td>{{ food.flavor }}</td>
-        <td>{{ food.quantity }}</td>
-      </tr> -->
+      <tr *ngFor="let inventoryData of inventoryDatas">
+        <td>{{ inventoryData.name }}</td>
+        <td>{{ inventoryData.selectedFlavor }}</td>
+        <td>{{ inventoryData.remaining }}</td>
+      </tr>
     </tbody>
   </table>
 </div>

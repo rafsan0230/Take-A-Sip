@@ -31,13 +31,18 @@ async function postOrder(req, res) {
 
     const orderedFood = await Inventory.find({ name: foodName , selectedFlavor :  flavour });
 
-    
+    const latestRemaining = orderedFood.remaining - quantity;
+    const filter= {name: foodName , selectedFlavor :  flavour};
+    const update = {$set: {remaining : latestRemaining}};
 
+    const newInventoryData = await Inventory.findOneAndUpdate(filter, update, {
+      new:true
+    })
 
     const order = await Order.create(req.body);
 
     res.status(201);
-    res.send(order);
+    res.send(order, newInventoryData);
   } catch (error) {
     res.status(500);
     console.log(error);
