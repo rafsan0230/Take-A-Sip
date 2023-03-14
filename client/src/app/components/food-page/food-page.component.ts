@@ -9,6 +9,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
+import { InventoryService } from 'src/app/services/inventory.service';
+import { Inventory } from 'src/app/interfaces/inventory';
 
 @Component({
   selector: 'app-food-page',
@@ -23,6 +25,7 @@ export class FoodPageComponent implements OnInit {
 
   imageUrl: string = '';
   food: Food | undefined;
+  inventoryItems: Inventory[];
 
   selectedAttributes: SelectedFoodAttribute = {
     flavor: undefined,
@@ -36,12 +39,17 @@ export class FoodPageComponent implements OnInit {
     private foodService: FoodService,
     private fb: FormBuilder,
     private notificationService: NotificationService,
-    private authRoute: Router
+    private authRoute: Router,
+    private inventoryService: InventoryService
   ) {}
 
   ngOnInit() {
     this.getFood();
-    //console.log(this.food); // herein lies the error
+    //console.log(this.food);
+
+    this.inventoryService.getInventoryItems().subscribe((items) => {
+      this.inventoryItems = items;
+    });
 
     this.setSelectedAttributes(this.food?.flavors[0]);
     if (this.selectedAttributes?.flavor) {
@@ -94,11 +102,21 @@ export class FoodPageComponent implements OnInit {
   }
 
   addToList(food: Food, selectedAttributes: SelectedFoodAttribute) {
-    this.foodService.addToList(food, selectedAttributes);
-    this.notificationService.notifySuccess(
-      'Order added to the list!',
-      '☕️ SUCCESS'
-    );
+    food.selectedFlavor =
+      this.selectedAttributes.flavor?.name.toLocaleLowerCase();
+    // console.log(this.food, this.selectedAttributes.flavor?.name);
+    if (this.food && this.food.qty <= 10) {
+      this.foodService.addToList(food, selectedAttributes);
+      this.notificationService.notifySuccess(
+        'Order added to the list!',
+        '☕️ SUCCESS'
+      );
+    } else {
+      this.notificationService.notifyError(
+        'Limit of items ordered exceeded',
+        '☕️ Error'
+      );
+    }
     this.noteAreaForm.reset();
   }
 
@@ -110,8 +128,7 @@ export class FoodPageComponent implements OnInit {
   }
   plus() {
     // need to check if it overflows here
-    console.log(this.food);
-    if (this.food && this.food.qty + 1 <= 10) this.food.qty = this.food.qty + 1;
+    if (this.food) this.food.qty = this.food.qty + 1;
   }
   minus() {
     if (this.food && this.food.qty > 0) {
