@@ -11,6 +11,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { Inventory } from 'src/app/interfaces/inventory';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-food-page',
@@ -25,7 +26,9 @@ export class FoodPageComponent implements OnInit {
 
   imageUrl: string = '';
   food: Food | undefined;
-  inventoryItems: Inventory[];
+  inventoryItems!: any;
+
+  readonly inventoryURL = 'http://localhost:6789/inventory/getInventory';
 
   selectedAttributes: SelectedFoodAttribute = {
     flavor: undefined,
@@ -40,16 +43,27 @@ export class FoodPageComponent implements OnInit {
     private fb: FormBuilder,
     private notificationService: NotificationService,
     private authRoute: Router,
-    private inventoryService: InventoryService
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
     this.getFood();
     //console.log(this.food);
 
-    this.inventoryService.getInventoryItems().subscribe((items) => {
-      this.inventoryItems = items;
-    });
+    // this.inventoryService.getInventoryItems().subscribe((items) => {
+    //   console.log('from subscribe', items);
+    //   this.inventoryItems = items;
+    // });
+
+    const getting = this.getInventoryDatas();
+    if (getting) {
+      getting.subscribe((response) => {
+        // console.log(response);
+        this.inventoryItems = response;
+      });
+    }
+
+    // console.log(this.inventoryItems);
 
     this.setSelectedAttributes(this.food?.flavors[0]);
     if (this.selectedAttributes?.flavor) {
@@ -60,9 +74,13 @@ export class FoodPageComponent implements OnInit {
     const user = userStr ? JSON.parse(userStr) : null;
   }
 
+  getInventoryDatas() {
+    return this.http.get(this.inventoryURL);
+  }
+
   getFood(): void {
     const id = this.route.snapshot.paramMap.get('id')!;
-    console.log('from url', id);
+    // console.log('from url', id);
 
     // const getting = this.foodService.getFoods();
     // if (getting) {
@@ -73,7 +91,7 @@ export class FoodPageComponent implements OnInit {
     // }
 
     this.foodService.getFood(id).subscribe((response) => {
-      console.log('food service', response);
+      // console.log('food service', response);
       this.food = response;
     });
   }
@@ -104,10 +122,16 @@ export class FoodPageComponent implements OnInit {
   addToList(food: Food, selectedAttributes: SelectedFoodAttribute) {
     console.log('selected flabvour', this.selectedAttributes)
     food.selectedFlavor =
-      this.selectedAttributes.flavor?.name.toLocaleLowerCase();
-
-    // console.log(this.food, this.selectedAttributes.flavor?.name);
-    if (this.food && this.food.qty <= 10) {
+      this.selectedAttributes.flavor?.name.toLocaleLowerCase()!;
+    console.log(food.name, this.selectedAttributes.flavor?.name);
+    const selectedItem = this.inventoryItems.filter((item: Inventory) => {
+      return (
+        item.name === food.name && item.selectedFlavor === food.selectedFlavor
+      );
+    });
+    console.log(selectedItem[0].remaining);
+    if (this.food && this.food.qty <= selectedItem[0].remaining) {
+      // this.foodService.addToList(food, selectedAttributes);
       this.foodService.addToList(food, selectedAttributes);
       this.notificationService.notifySuccess(
         'Order added to the list!',
