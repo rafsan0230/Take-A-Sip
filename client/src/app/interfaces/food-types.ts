@@ -1,7 +1,9 @@
 import { Food } from "./food";
 
 
-export const FOODS: Food[] = [
+
+
+export const FOODS: Food[] = [ 
     {
       id: 1,
       name: 'Tea',
@@ -13,7 +15,8 @@ export const FOODS: Food[] = [
       ],
       selectedFlavor: '',
       qty: 1,
-      note: ''
+      note: '',
+      remaining: 10
     },
     {
       id: 2,
@@ -25,7 +28,8 @@ export const FOODS: Food[] = [
       ],
       selectedFlavor: '',
       qty: 1,
-      note: ''
+      note: '',
+      remaining: 10
     },
   ];
   

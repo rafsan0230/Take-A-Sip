@@ -29,7 +29,6 @@ export class FoodService {
         'Authorization': token ? token : ''
       }
     }
-
     return this.http.get<OrderList[]>(this.url, httpOptions);
   }
   
@@ -50,6 +49,7 @@ export class FoodService {
         'Content-Type': 'application/json',
         'Authorization': token ? token : ''
       }
+      
     };
 
     return this.http.put<OrderList>(this.url + `/${id}/${status}`, {}, httpOptions);
@@ -67,8 +67,12 @@ export class FoodService {
   }
   
   /*Food Section*/
-  getFoods(): Food[] {
-    return FOODS;
+
+  readonly foodtypeURL = 'http://localhost:6789/inventory';
+
+
+  getFoods(): Observable<Food[]> {
+    return this.http.get<Food[]>(this.foodtypeURL);
   }
 
    getFood(id: number): Observable<Food | undefined> {
@@ -92,10 +96,11 @@ export class FoodService {
     flavors: [],
     selectedFlavor: '',
     qty: 0,
-    note: 'e.g. sugar 2 teaspoon(tsp.) ...'
+    note: 'e.g. sugar 2 teaspoon(tsp.) ...',
+    remaining: 10
   };
     Object.assign(foodRef,food);
-    foodRef.selectedFlavor = selectedAttribute.flavor?.name
+    foodRef.selectedFlavor = selectedAttribute.flavor?.name,
     this.listItems.push(foodRef);
   }
 

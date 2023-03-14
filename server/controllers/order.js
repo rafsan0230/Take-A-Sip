@@ -37,8 +37,10 @@ async function updateOrderStatus(req, res) {
   try {
     if (req.user && req.user.usertype === 'admin') {
       const { id, status } = req.params;
+      const qty = req.body.qty;
+      const remainingQty = req.body.remaining - qty;
       const result = await Order.findByIdAndUpdate(id, {
-        $set: { status: status },
+        $set: { status: status, remaining: remainingQty },
       });
       res.status(200);
       res.send(result);

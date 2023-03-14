@@ -9,4 +9,5 @@ export interface Food {
     selectedFlavor: string | undefined;
     qty: number;
     note?: string;
+    remaining: number;
 }

@@ -18,6 +18,10 @@ const foodSchema = new Schema({
   note: {
     type: String,
     default: ''
+  },
+  remaining: {
+    type: Number,
+    default: 10
   }
 })
 

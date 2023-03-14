@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Food } from 'src/app/interfaces/food';
 import { FOODS } from '../../interfaces/food-types';
 
 @Component({
@@ -8,7 +9,8 @@ import { FOODS } from '../../interfaces/food-types';
   styleUrls: ['./foods.component.scss']
 })
 export class FoodsComponent {
-  foods = FOODS;
+  // foods = FOODS;
+  @Input () foods:Food[]
   
   constructor (private route: Router) {}
 

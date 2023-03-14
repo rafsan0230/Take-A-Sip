@@ -35,6 +35,7 @@ export class OrderFormComponent implements OnInit{
   onSubmit() {
     const val = this.orderForm.value;
     this.listService.addOrder(this.user,this.listItems,'created',val.order!,val.room!).subscribe(()=>{});
+    console.log('from order form', this.listItems.map(el => {return el}))
     this.notificationService.notifySuccess('Successfully submitted your order!','Congrats 🎉')
     this.orderForm.reset();
     this.listService.clearList();
