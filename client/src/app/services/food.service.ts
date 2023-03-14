@@ -34,11 +34,13 @@ export class FoodService {
   }
   
   addOrder (user: User, foods: Food[], status: string, orderfor: string, room: string) : Observable<OrderList> {
+    
     const httpOptions = {
       headers: {
         'Content-Type': 'application/json'
       }
     };
+    console.log(foods)
     return this.http.post<OrderList>(this.url,{ user, foods, status, orderfor,room}, httpOptions);
   }
 
@@ -112,7 +114,7 @@ export class FoodService {
     remaining: 10
   };
     Object.assign(foodRef,food);
-    foodRef.selectedFlavor = selectedAttribute.flavor?.name,
+    // foodRef.selectedFlavor = selectedAttribute.flavor?.name,
     this.listItems.push(foodRef);
   }
 

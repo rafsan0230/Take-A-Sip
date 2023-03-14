@@ -120,6 +120,7 @@ export class FoodPageComponent implements OnInit {
   }
 
   addToList(food: Food, selectedAttributes: SelectedFoodAttribute) {
+    console.log('selected flabvour', this.selectedAttributes)
     food.selectedFlavor =
       this.selectedAttributes.flavor?.name.toLocaleLowerCase()!;
     console.log(food.name, this.selectedAttributes.flavor?.name);
