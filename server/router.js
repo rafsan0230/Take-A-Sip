@@ -22,5 +22,6 @@ router.get('/inventory', inventoryController.getFood);
 router.get('/inventory/getInventory', inventoryController.getInventory);
 router.get('/inventory/:id', inventoryController.getFoodById);
 router.put('/inventory/add/:id', inventoryController.updateFood);
+router.put("/inventory", inventoryController.updateQuantity);
 
 module.exports = router;

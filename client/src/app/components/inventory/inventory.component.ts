@@ -9,12 +9,30 @@ import { Observable } from 'rxjs';
 })
 export class InventoryComponent {
   inventoryDatas!: any;
+  addItem = false;
+  quantity =0;
+
+
 
   constructor(private http: HttpClient) {}
   readonly inventoryURL = 'http://localhost:6789/inventory/getInventory';
+  readonly addInventoryURL = 'http://localhost:6789/inventory';
 
   getInventoryDatas() {
     return this.http.get(this.inventoryURL);
+  }
+  addItemShow(){
+    this.addItem=true
+  }
+
+  submitQty(id:string, qty:any){
+    console.log(id,qty)
+    this.quantity=qty;
+    this.http
+        .put(this.addInventoryURL, {id,qty})
+        .subscribe((response) => {
+          console.log(response);
+        });
   }
 
   ngOnInit() {

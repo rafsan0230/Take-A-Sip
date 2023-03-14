@@ -10,6 +10,10 @@
         <td>{{ inventoryData.name }}</td>
         <td>{{ inventoryData.selectedFlavor }}</td>
         <td>{{ inventoryData.remaining }}</td>
+        <td> <button type="button" (click)="addItemShow()">Add Quantity</button></td>
+        <td *ngIf="addItem"> <input type="number" value="" name="qty" id="qty" #box> <button (click)="submitQty(inventoryData._id,box.value)">Submit</button> </td>
+
+
       </tr>
     </tbody>
   </table>

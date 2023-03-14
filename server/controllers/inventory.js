@@ -53,4 +53,31 @@ const updateFood = async (req, res, next) => {
   }
 };
 
-module.exports = { addFood, getFood, updateFood, getFoodById, getInventory };
+const updateQuantity = async (req, res,) => {
+  const id = req.body.id;
+  const quantity = req.body.qty;
+  console.log(id,quantity)
+  try {
+    const requestedItem = await Inventory.findOne({ _id: id });
+    
+    console.log("newrembefore", requestedItem.remaining)
+    
+    const latestRemaining = parseInt(requestedItem.remaining) + parseInt(quantity);
+    console.log("newrem", latestRemaining)
+    const filter= { _id: id };
+    const update = {$set: {remaining : latestRemaining}};
+
+    const updatedInventory = await Inventory.findOneAndUpdate(filter, update, {
+      new:true
+    })
+    console.log(updatedInventory)
+
+    res.status(201);
+    res.send(updatedInventory);
+  } catch (error) {
+    res.status(500);
+    console.log(error);
+  }
+}
+
+module.exports = { addFood, getFood, updateFood, getFoodById, getInventory, updateQuantity };
