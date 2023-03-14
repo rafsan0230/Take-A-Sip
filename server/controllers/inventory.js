@@ -20,7 +20,19 @@ const getFood = async (req, res, next) => {
   }
 };
 
-const updateFood  = async (req, res, next) => {
+const getFoodById = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const patient = await Food.findById(id);
+    res.status(201);
+    res.send(patient);
+  }
+  catch (error) {
+      res.send(error);
+  }
+}
+
+const updateFood = async (req, res, next) => {
   try {
     const { id } = req.params;
     const updatedFood = await Food.findByIdAndUpdate(id, req.body);
@@ -31,4 +43,4 @@ const updateFood  = async (req, res, next) => {
   }
 };
 
-module.exports = { addFood, getFood, updateFood };
+module.exports = { addFood, getFood, updateFood, getFoodById };

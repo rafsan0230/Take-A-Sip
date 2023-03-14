@@ -15,6 +15,7 @@ export class FoodComponent implements OnInit{
 
   ngOnInit(): void {
     this.imageUrl = this.food?.imageUrls[0] ?? '';
+    // console.log("reading id",this.food)
   }
 
 

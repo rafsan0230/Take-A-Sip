@@ -24,7 +24,10 @@ async function getOrders(req, res) {
 
 async function postOrder(req, res) {
   try {
+    oldRemaining = req.body.remaining
+
     const order = await Order.create(req.body);
+
     res.status(201);
     res.send(order);
   } catch (error) {
@@ -35,10 +38,12 @@ async function postOrder(req, res) {
 
 async function updateOrderStatus(req, res) {
   try {
-    if (req.user && req.user.usertype === 'admin') {
+    if (req.user && req.user.usertype === 'admin') { 
       const { id, status } = req.params;
+      const qty = req.body.qty;
+      const remainingQty = req.body.remaining - qty;
       const result = await Order.findByIdAndUpdate(id, {
-        $set: { status: status },
+        $set: { status: status, remaining: remainingQty },
       });
       res.status(200);
       res.send(result);

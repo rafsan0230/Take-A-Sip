@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { FOODS } from '../interfaces/food-types';
+// import { FOODS } from '../interfaces/food-types';
 import { Food } from '../interfaces/food';
 import { SelectedFoodAttribute } from '../interfaces/selectedFoodAttribute';
 import { OrderList } from '../interfaces/orderlist';
@@ -15,7 +15,8 @@ import { User } from '../interfaces/user';
 export class FoodService {
 
   url = 'http://localhost:6789/orders';  
-  
+
+  foodTypes:Food[] = [];
   listItems: Food[] = [];
   selectedAttribute:  SelectedFoodAttribute[] = [];
 
@@ -29,7 +30,6 @@ export class FoodService {
         'Authorization': token ? token : ''
       }
     }
-
     return this.http.get<OrderList[]>(this.url, httpOptions);
   }
   
@@ -50,6 +50,7 @@ export class FoodService {
         'Content-Type': 'application/json',
         'Authorization': token ? token : ''
       }
+      
     };
 
     return this.http.put<OrderList>(this.url + `/${id}/${status}`, {}, httpOptions);
@@ -67,13 +68,28 @@ export class FoodService {
   }
   
   /*Food Section*/
-  getFoods(): Food[] {
-    return FOODS;
+
+  readonly foodtypeURL = 'http://localhost:6789/inventory';
+
+
+  getFoods(): Observable<Food[]> {
+    return this.http.get<Food[]>(this.foodtypeURL);
   }
 
-   getFood(id: number): Observable<Food | undefined> {
-    const food = FOODS.find(food => food.id === id);
-    return of(food);    
+  //! Previous code refactored 
+   getFood(id: string): Observable<Food> {
+    return this.http.get<Food>(this.foodtypeURL+'/'+id)
+    // return this.foodTypes;
+  }
+
+  getFoodTypes(){
+    const getting = this.getFoods();
+    if (getting) {
+      getting.subscribe((response) => {
+        console.log("food service",response);
+        this.foodTypes = response;
+      });
+    }
   }
 
  
@@ -86,16 +102,17 @@ export class FoodService {
 
   addToList(food: Food, selectedAttribute: SelectedFoodAttribute) {
   let foodRef: Food = {
-    id: 0,
+    _id: '',
     name: '',
     imageUrls: [],
     flavors: [],
     selectedFlavor: '',
     qty: 0,
-    note: 'e.g. sugar 2 teaspoon(tsp.) ...'
+    note: 'e.g. sugar 2 teaspoon(tsp.) ...',
+    remaining: 10
   };
     Object.assign(foodRef,food);
-    foodRef.selectedFlavor = selectedAttribute.flavor?.name
+    foodRef.selectedFlavor = selectedAttribute.flavor?.name,
     this.listItems.push(foodRef);
   }
 
