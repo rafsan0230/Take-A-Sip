@@ -102,8 +102,10 @@ export class FoodPageComponent implements OnInit {
   }
 
   addToList(food: Food, selectedAttributes: SelectedFoodAttribute) {
+    console.log('selected flabvour', this.selectedAttributes)
     food.selectedFlavor =
       this.selectedAttributes.flavor?.name.toLocaleLowerCase();
+
     // console.log(this.food, this.selectedAttributes.flavor?.name);
     if (this.food && this.food.qty <= 10) {
       this.foodService.addToList(food, selectedAttributes);

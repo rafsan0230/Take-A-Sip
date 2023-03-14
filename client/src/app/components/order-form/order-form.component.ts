@@ -33,7 +33,9 @@ export class OrderFormComponent implements OnInit{
   constructor(private listService: FoodService, private fb: FormBuilder,private http: HttpClient,private notificationService: NotificationService, private io: Socket) { }
 
   onSubmit() {
+    // console.log(this.listService.getListItems())
     const val = this.orderForm.value;
+    console.log('all foods', this.listItems)
     this.listService.addOrder(this.user,this.listItems,'created',val.order!,val.room!).subscribe(()=>{});
     console.log('from order form', this.listItems.map(el => {return el}))
     this.notificationService.notifySuccess('Successfully submitted your order!','Congrats 🎉')
