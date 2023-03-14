@@ -20,7 +20,7 @@ const getFood = async (req, res, next) => {
   }
 };
 
-const updateFood = async (req, res, next) => {
+const updateFood  = async (req, res, next) => {
   try {
     const { id } = req.params;
     const updatedFood = await Food.findByIdAndUpdate(id, req.body);

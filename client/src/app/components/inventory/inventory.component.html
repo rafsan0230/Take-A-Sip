@@ -1,1 +1,16 @@
-<p>inventory works!</p>
+<div class="tbl-header">
+  <table cellpadding="0" cellspacing="0">
+    <thead>
+      <th>Name</th>
+      <th>Flavor</th>
+      <th>Quantity Left</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let food of foods">
+        <td>{{ food.name }}</td>
+        <td>{{ food.flavor }}</td>
+        <td>{{ food.quantity }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
