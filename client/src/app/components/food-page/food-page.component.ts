@@ -110,7 +110,7 @@ export class FoodPageComponent implements OnInit {
   }
   plus() {
     // need to check if it overflows here
-
+    console.log(this.food);
     if (this.food && this.food.qty + 1 <= 10) this.food.qty = this.food.qty + 1;
   }
   minus() {
