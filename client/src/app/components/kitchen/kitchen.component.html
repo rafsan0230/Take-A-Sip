@@ -1,119 +1,154 @@
 <div class="topsec">
-  <button id="refresh" (click)="refresh()">
-    <fa-icon  [icon]="rotate"></fa-icon>  Refresh
-  </button>
-  <h5 style="margin-right: 1rem; margin-top: 0.5rem;">Last updated {{refreshTime}}</h5>
+  <a id="refresh" routerLink="/inventory">Inventory</a>
+  <!-- <h5 style="margin-right: 1rem; margin-top: 0.5rem">
+    Last updated {{ refreshTime }}
+  </h5> -->
 </div>
-<div class ="main-container">
-    <div class="container">
-        <h2>Orders <span *ngIf="orders.length > 0"> - {{orders.length}}</span></h2>
-        <div
-          cdkDropList
-          #orderList="cdkDropList"
-          [cdkDropListData]="orders"
-          [cdkDropListConnectedTo]="[progressList]"
-          class="list"
-          (cdkDropListDropped)="drop($event)">
-       <div class="" *ngFor="let item of orders" cdkDrag>
-
-          <mat-card class="example-card">
-            <mat-card-header class="card-header">
-              <mat-card-title-group>
-                <mat-card-title>Order For: {{item.user.firstName}} {{item.user.lastName}}</mat-card-title>
-                <mat-card-subtitle>Room: {{item.room}} </mat-card-subtitle>
-              </mat-card-title-group>
-            </mat-card-header>
-            <mat-card-content>
-              <mat-list class="example-list-wrapping">
-                <h3 style="margin-left: 1rem; margin-bottom: 0; font-weight: bold;">Ordered items:</h3>
-                <mat-list-item lines="3" *ngFor="let food of item.foods">
-                  <span matListItemTitle>{{food.selectedFlavor | uppercase}} {{food.name}}</span> 
-                  <span style="color: #a55b41; font-weight: bold;">Qty: {{food.qty}}</span> <br>
-                  <span>Note: {{ food.note }}</span>
-                </mat-list-item>
-              </mat-list>
-            </mat-card-content>
-          </mat-card>
-        </div>
-         
-
-
-
-        </div>
-    </div>
-    
-    
-    <div class="container">
-        <h2>In progress<span *ngIf="inProgress.length > 0"> - {{inProgress.length}}</span></h2>
-      
-        <div
-          cdkDropList
-          #progressList="cdkDropList"
-          [cdkDropListData]="inProgress"
-          [cdkDropListConnectedTo]="[readyList]"
-          class="list"
-          (cdkDropListDropped)="drop($event)">
-
-          <div class="" *ngFor="let item of inProgress" cdkDrag>
-
-            <mat-card class="example-card">
-              <mat-card-header class="card-header">
-                <mat-card-title-group>
-                  <mat-card-title>Order For: {{item.user.firstName}} {{item.user.lastName}}</mat-card-title>
-                  <mat-card-subtitle>Room: {{item.room}} </mat-card-subtitle>
-                </mat-card-title-group>
-              </mat-card-header>
-              <mat-card-content>
-                <mat-list class="example-list-wrapping">
-                  <h3 style="margin-left: 1rem; margin-bottom: 0; font-weight: bold;">Ordered items:</h3>
-                  <mat-list-item lines="3" *ngFor="let food of item.foods">
-                    <span matListItemTitle>{{food.selectedFlavor | uppercase}} {{food.name}}</span> 
-                    <span style="color: #a55b41; font-weight: bold;">Qty: {{food.qty}}</span> <br>
-                    <span>Note: {{ food.note }}</span>
-                  </mat-list-item>
-                </mat-list>
-              </mat-card-content>
-            </mat-card>
-          </div>
-
-
-        </div>
-    </div>
-      
-      <div class="container">
-        <h2>Ready <span *ngIf="ready.length > 0"> - {{ready.length}}</span></h2>
-        <div
-          cdkDropList
-          #readyList="cdkDropList"
-          [cdkDropListData]="ready"
-          [cdkDropListConnectedTo]="[progressList]"
-            class="list"
-          (cdkDropListDropped)="drop($event)">
-        <div class="" *ngFor="let item of ready" cdkDrag>
-          <mat-card class="example-card">
-            <button class="btn remove"><fa-icon (click)="removeOrder(item._id)" [icon]="trash"></fa-icon></button>
-            <mat-card-header class="card-header">
-              <mat-card-title-group>
-                <mat-card-title>Order For: {{item.user.firstName}} {{item.user.lastName}}</mat-card-title>
-                <mat-card-subtitle>Room: {{item.room}} </mat-card-subtitle>
-              </mat-card-title-group>
-            </mat-card-header>
-            <mat-card-content>
-              <mat-list class="example-list-wrapping">
-                <h3 style="margin-left: 1rem; margin-bottom: 0; font-weight: bold;">Ordered items:</h3>
-                <mat-list-item lines="3" *ngFor="let food of item.foods">
-                  <span matListItemTitle>{{food.selectedFlavor | uppercase}} {{food.name}}</span> 
-                  <span style="color: #a55b41; font-weight: bold;">Qty: {{food.qty}}</span> <br>
-                  <span>Note: {{ food.note }}</span>
-                </mat-list-item>
-              </mat-list>
-            </mat-card-content>
-          </mat-card>
-        </div>
-
+<div class="main-container">
+  <div class="container">
+    <h2>
+      Orders <span *ngIf="orders.length > 0"> - {{ orders.length }}</span>
+    </h2>
+    <div
+      cdkDropList
+      #orderList="cdkDropList"
+      [cdkDropListData]="orders"
+      [cdkDropListConnectedTo]="[progressList]"
+      class="list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="" *ngFor="let item of orders" cdkDrag>
+        <mat-card class="example-card">
+          <mat-card-header class="card-header">
+            <mat-card-title-group>
+              <mat-card-title
+                >Order For: {{ item.user.firstName }}
+                {{ item.user.lastName }}</mat-card-title
+              >
+              <mat-card-subtitle>Room: {{ item.room }} </mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list class="example-list-wrapping">
+              <h3
+                style="margin-left: 1rem; margin-bottom: 0; font-weight: bold"
+              >
+                Ordered items:
+              </h3>
+              <mat-list-item lines="3" *ngFor="let food of item.foods">
+                <span matListItemTitle
+                  >{{ food.selectedFlavor | uppercase }} {{ food.name }}</span
+                >
+                <span style="color: #a55b41; font-weight: bold"
+                  >Qty: {{ food.qty }}</span
+                >
+                <br />
+                <span>Note: {{ food.note }}</span>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
       </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>
+      In progress<span *ngIf="inProgress.length > 0">
+        - {{ inProgress.length }}</span
+      >
+    </h2>
+
+    <div
+      cdkDropList
+      #progressList="cdkDropList"
+      [cdkDropListData]="inProgress"
+      [cdkDropListConnectedTo]="[readyList]"
+      class="list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="" *ngFor="let item of inProgress" cdkDrag>
+        <mat-card class="example-card">
+          <mat-card-header class="card-header">
+            <mat-card-title-group>
+              <mat-card-title
+                >Order For: {{ item.user.firstName }}
+                {{ item.user.lastName }}</mat-card-title
+              >
+              <mat-card-subtitle>Room: {{ item.room }} </mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list class="example-list-wrapping">
+              <h3
+                style="margin-left: 1rem; margin-bottom: 0; font-weight: bold"
+              >
+                Ordered items:
+              </h3>
+              <mat-list-item lines="3" *ngFor="let food of item.foods">
+                <span matListItemTitle
+                  >{{ food.selectedFlavor | uppercase }} {{ food.name }}</span
+                >
+                <span style="color: #a55b41; font-weight: bold"
+                  >Qty: {{ food.qty }}</span
+                >
+                <br />
+                <span>Note: {{ food.note }}</span>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>
+      Ready <span *ngIf="ready.length > 0"> - {{ ready.length }}</span>
+    </h2>
+    <div
+      cdkDropList
+      #readyList="cdkDropList"
+      [cdkDropListData]="ready"
+      [cdkDropListConnectedTo]="[progressList]"
+      class="list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="" *ngFor="let item of ready" cdkDrag>
+        <mat-card class="example-card">
+          <button class="btn remove">
+            <fa-icon (click)="removeOrder(item._id)" [icon]="trash"></fa-icon>
+          </button>
+          <mat-card-header class="card-header">
+            <mat-card-title-group>
+              <mat-card-title
+                >Order For: {{ item.user.firstName }}
+                {{ item.user.lastName }}</mat-card-title
+              >
+              <mat-card-subtitle>Room: {{ item.room }} </mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list class="example-list-wrapping">
+              <h3
+                style="margin-left: 1rem; margin-bottom: 0; font-weight: bold"
+              >
+                Ordered items:
+              </h3>
+              <mat-list-item lines="3" *ngFor="let food of item.foods">
+                <span matListItemTitle
+                  >{{ food.selectedFlavor | uppercase }} {{ food.name }}</span
+                >
+                <span style="color: #a55b41; font-weight: bold"
+                  >Qty: {{ food.qty }}</span
+                >
+                <br />
+                <span>Note: {{ food.note }}</span>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
 </div>
-
-
-  
-  

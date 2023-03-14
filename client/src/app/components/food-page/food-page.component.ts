@@ -1,19 +1,19 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Food } from "src/app/interfaces/food";
-import { Flavor } from "src/app/interfaces/flavor";
-import { SelectedFoodAttribute } from "src/app/interfaces/selectedFoodAttribute";
-import { FoodService } from "src/app/services/food.service";
-import { FormBuilder } from "@angular/forms";
-import { NotificationService } from "src/app/services/notification.service";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Food } from 'src/app/interfaces/food';
+import { Flavor } from 'src/app/interfaces/flavor';
+import { SelectedFoodAttribute } from 'src/app/interfaces/selectedFoodAttribute';
+import { FoodService } from 'src/app/services/food.service';
+import { FormBuilder } from '@angular/forms';
+import { NotificationService } from 'src/app/services/notification.service';
+import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "app-food-page",
-  templateUrl: "./food-page.component.html",
-  styleUrls: ["./food-page.component.scss"],
+  selector: 'app-food-page',
+  templateUrl: './food-page.component.html',
+  styleUrls: ['./food-page.component.scss'],
 })
 export class FoodPageComponent implements OnInit {
   // Foods:Food[] = [];
@@ -21,14 +21,14 @@ export class FoodPageComponent implements OnInit {
   plusIcon = faPlus;
   minusIcon = faMinus;
 
-  imageUrl: string = "";
+  imageUrl: string = '';
   food: Food | undefined;
 
   selectedAttributes: SelectedFoodAttribute = {
     flavor: undefined,
   };
   noteAreaForm = this.fb.group({
-    noteArea: "",
+    noteArea: '',
   });
 
   constructor(
@@ -40,7 +40,6 @@ export class FoodPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.getFood();
     //console.log(this.food); // herein lies the error
 
@@ -49,14 +48,14 @@ export class FoodPageComponent implements OnInit {
       this.setImageUrl(this.selectedAttributes.flavor);
     }
 
-    const userStr = localStorage.getItem("user");
+    const userStr = localStorage.getItem('user');
     const user = userStr ? JSON.parse(userStr) : null;
   }
 
   getFood(): void {
-    const id = (this.route.snapshot.paramMap.get("id"))!;
-    console.log("from url",id)
-    
+    const id = this.route.snapshot.paramMap.get('id')!;
+    console.log('from url', id);
+
     // const getting = this.foodService.getFoods();
     // if (getting) {
     //   getting.subscribe((response) => {
@@ -65,10 +64,10 @@ export class FoodPageComponent implements OnInit {
     //   });
     // }
 
-   this.foodService.getFood(id).subscribe((response) => {
-    console.log("food service",response);
-    this.food = response;
-  });;
+    this.foodService.getFood(id).subscribe((response) => {
+      console.log('food service', response);
+      this.food = response;
+    });
   }
 
   setImageUrl(flavor: Flavor): void {
@@ -82,7 +81,7 @@ export class FoodPageComponent implements OnInit {
   }
 
   public updateSelectedFoodAttributes(flavor: Flavor | undefined) {
-    this.setSelectedAttributes(flavor ?? { name: "none", color: "#DDD" });
+    this.setSelectedAttributes(flavor ?? { name: 'none', color: '#DDD' });
     if (this.selectedAttributes.flavor) {
       this.setImageUrl(this.selectedAttributes.flavor);
     }
@@ -97,8 +96,8 @@ export class FoodPageComponent implements OnInit {
   addToList(food: Food, selectedAttributes: SelectedFoodAttribute) {
     this.foodService.addToList(food, selectedAttributes);
     this.notificationService.notifySuccess(
-      "Order added to the list!",
-      "☕️ SUCCESS"
+      'Order added to the list!',
+      '☕️ SUCCESS'
     );
     this.noteAreaForm.reset();
   }
@@ -110,7 +109,9 @@ export class FoodPageComponent implements OnInit {
     return false;
   }
   plus() {
-    if (this.food) this.food.qty = this.food.qty + 1;
+    // need to check if it overflows here
+    console.log(this.food);
+    if (this.food && this.food.qty + 1 <= 10) this.food.qty = this.food.qty + 1;
   }
   minus() {
     if (this.food && this.food.qty > 0) {

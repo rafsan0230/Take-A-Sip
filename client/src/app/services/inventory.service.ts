@@ -1,11 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventoryService {
+  rootUrl = "http://localhost:6789";
+  constructor(private http: HttpClient) {
 
-  constructor(private inventoryService: InventoryService) {
+    // getSpecificItem(): Observable<>
     
    }
 }
