@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     const getting = this.foodService.getFoods();
     if (getting) {
       getting.subscribe((response) => {
-        console.log("food service",response);
+        console.log("food service", response);
         this.Foods = response;
       });
     }
