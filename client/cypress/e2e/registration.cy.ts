@@ -11,7 +11,7 @@ describe('Starting e2e', () => {
     cy.get('#lastName').type('Rafsan');
     cy.get('#designation').type('Junior Software Engineer');
 
-    cy.get('#email').type('test101@gmail.com');
+    cy.get('#email').type('test110@gmail.com');
     cy.get('#password').type('1234567');
     cy.get('#confirmPassword').type('1234567');
     cy.get('#submit-btn').click();
