@@ -1,41 +1,85 @@
 <div class="main-con">
   <div class="left-con">
-    <h2 class= "logo"routerLink="/login"></h2>
-    <h2>Making<br>your office order<br> <span> Simpler </span></h2>
+    <h2 class="logo" routerLink="/login"></h2>
+    <h2>
+      Making<br />your office order<br />
+      <span> Simpler </span>
+    </h2>
   </div>
   <div class="right-con">
-
     <div class="login-box">
       <h1><fa-icon [icon]="mugIcon"></fa-icon> Join Take A Sip</h1>
-      <h4>Already have an account? <span class="pointer" routerLink="/login">Login</span></h4>
-      <div class="form-err-msg">{{errorMsg}}</div>
-      
-      <form [formGroup]= "regForm">
+      <h4>
+        Already have an account?
+        <span class="pointer" routerLink="/login">Login</span>
+      </h4>
+      <div class="form-err-msg">{{ errorMsg }}</div>
+
+      <form [formGroup]="regForm">
         <div class="user-box">
-          <input type="text" name="firstName" required="" formControlName="firstName" required>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            required=""
+            formControlName="firstName"
+            required
+          />
           <label>First Name</label>
         </div>
         <div class="user-box">
-          <input type="text" name="lastName" required="" formControlName="lastName">
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            required=""
+            formControlName="lastName"
+          />
           <label>Last Name</label>
         </div>
         <div class="user-box">
-          <input type="text" name="designation" required="" formControlName="designation">
+          <input
+            type="text"
+            id="designation"
+            name="designation"
+            required=""
+            formControlName="designation"
+          />
           <label>Designation</label>
         </div>
         <div class="user-box">
-          <input type="email" name="email" required="" formControlName="email" >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required=""
+            formControlName="email"
+          />
           <label>Email</label>
         </div>
         <div class="user-box">
-          <input type="password" name="password" required="" formControlName="password" required>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required=""
+            formControlName="password"
+            required
+          />
           <label>Password</label>
         </div>
         <div class="user-box">
-          <input type="password" name="confirmPassword" required="" formControlName="confirmPassword" required>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required=""
+            formControlName="confirmPassword"
+            required
+          />
           <label>Confirm password</label>
         </div>
-        <a  class="pointer" (click)="register()">
+        <a class="pointer" id="submit-btn" (click)="register()">
           <span></span>
           <span></span>
           <span></span>
@@ -44,6 +88,5 @@
         </a>
       </form>
     </div>
-
   </div>
 </div>

@@ -4,14 +4,14 @@
     <div class="form-err-msg">{{errorMsg}}</div>
     <form [formGroup]= "loginForm">
       <div class="user-box">
-        <input type="text" name="email" required="" formControlName="email" required>
+        <input type="text" id="email" name="email" required="" formControlName="email" required>
         <label>Email</label>
       </div>
       <div class="user-box">
-        <input type="password" name="password" required="" formControlName="password" required>
+        <input type="password" id="password" name="password" required="" formControlName="password" required>
         <label>Password</label>
       </div>
-      <a class="pointer" (click)="login()">
+      <a id="submit-btn" class="pointer" (click)="login()">
         <span></span>
         <span></span>
         <span></span>
