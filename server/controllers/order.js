@@ -35,7 +35,7 @@ async function postOrder(req, res) {
     console.log(orderedFood);
     
     
-    const latestRemaining = orderedFood.remaining - quantity;
+    const latestRemaining = parseInt(orderedFood.remaining) - parseInt(quantity);
     const filter= {name: foodName , selectedFlavor :  flavour};
     const update = {$set: {remaining : latestRemaining}};
 
