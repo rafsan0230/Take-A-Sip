@@ -27,7 +27,7 @@ export class FoodPageComponent implements OnInit {
   imageUrl: string = '';
   food: Food | undefined;
   inventoryItems!: any;
-
+  listItems: Food[] = this.foodService.getListItems();
   readonly inventoryURL = 'http://localhost:6789/inventory/getInventory';
 
   selectedAttributes: SelectedFoodAttribute = {
@@ -120,31 +120,61 @@ export class FoodPageComponent implements OnInit {
   }
 
   addToList(food: Food, selectedAttributes: SelectedFoodAttribute) {
-    console.log('selected flabvour', this.selectedAttributes)
+   
+    //console.log('selected flabvour', this.selectedAttributes);
     food.selectedFlavor =
       this.selectedAttributes.flavor?.name.toLocaleLowerCase()!;
-    console.log(food.name, this.selectedAttributes.flavor?.name);
-    const selectedItem = this.inventoryItems.filter((item: Inventory) => {
+    //console.log(food.name, this.selectedAttributes.flavor?.name);
+
+
+    if (this.checkList(food)) {
+      const selectedItem = this.inventoryItems.filter((item: Inventory) => {
+        return (
+          item.name === food.name && item.selectedFlavor === food.selectedFlavor
+        );
+      });
+
+      // console.log(selectedItem[0].remaining);
+      if (this.food && this.food.qty <= selectedItem[0].remaining) {
+       
+        this.foodService.addToList(food, selectedAttributes);
+        
+        this.notificationService.notifySuccess(
+          'Order added to the list!',
+          '☕️ SUCCESS'
+        );
+      } else {
+        this.notificationService.notifyError(
+          `Please order below ${selectedItem[0].remaining}`,
+          '☕️ Error'
+        );
+      }
+      this.noteAreaForm.reset();
+
+    }
+    else { 
+       this.notificationService.notifyError(
+         `Please update the quantity of the existing item`,
+         '☕️ This item is already in the Order List'
+       );
+    }
+
+
+
+  }
+
+  checkList(food : Food) { 
+    const selectedItem = this.listItems.filter((item: Food) => {
       return (
         item.name === food.name && item.selectedFlavor === food.selectedFlavor
       );
     });
-    console.log(selectedItem[0].remaining);
-    if (this.food && this.food.qty <= selectedItem[0].remaining) {
-      // this.foodService.addToList(food, selectedAttributes);
-      this.foodService.addToList(food, selectedAttributes);
-      this.notificationService.notifySuccess(
-        'Order added to the list!',
-        '☕️ SUCCESS'
-      );
-    } else {
-      this.notificationService.notifyError(
-        'Limit of items ordered exceeded',
-        '☕️ Error'
-      );
-    }
-    this.noteAreaForm.reset();
+    if (selectedItem.length > 0) return false;
+    else return true
+    
   }
+
+ 
 
   isValidQty() {
     if (this.food && this.food.qty) {

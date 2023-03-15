@@ -14,17 +14,18 @@
         {{ flavor.name | uppercase }}
       </div>
     </div>
-
-    <span class="minus" (click)="minus()"
+  <span class="minus" (click)="minus()"
       ><fa-icon [icon]="minusIcon"></fa-icon
     ></span>
-    <div *ngIf="food!.qty">
+    
+    <div class="input-qty">
       <input type="number" [(ngModel)]="food!.qty" value="1" class="qty" />
     </div>
-    <span class="plus" (click)="plus()"
+   
+   
+<span class="plus" (click)="plus()"
       ><fa-icon [icon]="plusIcon"></fa-icon
     ></span>
-
     <form [formGroup]="noteAreaForm">
       <textarea
         type="text"
