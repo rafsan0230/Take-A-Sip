@@ -43,6 +43,17 @@ export class ListComponent {
     }
   }
 
+  getMaxQuantity(food: Food) {
+     const selectedItem = this.inventoryItems.filter((item: Inventory) => {
+       return (
+         item.name === food.name && item.selectedFlavor === food.selectedFlavor
+       );
+     });
+    //  if (food.qty > selectedItem[0].remaining) return true;
+    //  else return false;
+    return selectedItem[0].remaining
+  }
+
   getInventoryDatas() {
     return this.http.get(this.inventoryURL);
   }
@@ -60,6 +71,7 @@ export class ListComponent {
         `Please order below ${selectedItem[0].remaining}`,
         '☕️ Error'
       );
+     
     }
   }
 

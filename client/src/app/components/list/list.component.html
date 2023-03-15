@@ -1,37 +1,57 @@
 <div class="container">
-<ng-container *ngIf="listItems.length !=0">
+  <ng-container *ngIf="listItems.length != 0">
     <div class="card-container" *ngFor="let item of listItems; let i = index">
-        <div class="card">
-            <div class="card-info">
-                <div class="right-container" style="color: #A55B41;">
-                   Qty: <input type="number" class="qtyHolder" [(ngModel)]="item.qty"  min="1" (ngModelChange)="onQuantityChange(item)">
-                </div>
-                <h2>{{item.name}}</h2>
-                <h5>Flavor: {{item.selectedFlavor | uppercase}}</h5>
-                <h5><input class="noteHolder" [(ngModel)]="item.note" placeholder="Notes..." (ngModelChange)="onFlavourChange(item)"></h5>
-                <button class="btn remove"><fa-icon (click)="removeItem(item)" [icon]="trash"></fa-icon>
-                </button>
-            </div>
+      <div class="card">
+        <div class="card-info">
+          <div class="right-container" style="color: #a55b41">
+            Qty:
+            <input
+              type="number"
+              class="qtyHolder"
+              [(ngModel)]="item.qty"
+              min="1"
+              [max]="getMaxQuantity(item)"
+              (ngModelChange)="onQuantityChange(item)"
+            />
+          </div>
+          <h2>{{ item.name }}</h2>
+          <h5>Flavor: {{ item.selectedFlavor | uppercase }}</h5>
+          <h5>
+            <input
+              class="noteHolder"
+              [(ngModel)]="item.note"
+              placeholder="Notes..."
+              (ngModelChange)="onFlavourChange(item)"
+            />
+          </h5>
+          <button class="btn remove">
+            <fa-icon (click)="removeItem(item)" [icon]="trash"></fa-icon>
+          </button>
         </div>
-    </div> 
-    <div class="action-area">
-        <div class="action-area-procceed">
-            <button routerLink="/order" class="order-btn">Order <fa-icon [icon]="frontIcon"></fa-icon> </button>
-            <button routerLink="/" class="add-btn"><fa-icon [icon]="plusIcon"></fa-icon> More</button>
-            <button (click)="emptyList()" class="empty-btn"><fa-icon [icon]="trash"></fa-icon> List</button>
-
-        </div>
-    </div>
-</ng-container>
-
-<ng-container *ngIf="listItems.length ==0">
-      <div class="center">
-          <h4>Your list is empty!</h4>
-          <h6>Add food to it now</h6>
-          <button routerLink="/home" class="btn btn-primary">Order Your Food</button>
       </div>
-</ng-container>
-</div>
-  
- 
+    </div>
+    <div class="action-area">
+      <div class="action-area-procceed">
+        <button routerLink="/order" class="order-btn">
+          Order <fa-icon [icon]="frontIcon"></fa-icon>
+        </button>
+        <button routerLink="/" class="add-btn">
+          <fa-icon [icon]="plusIcon"></fa-icon> More
+        </button>
+        <button (click)="emptyList()" class="empty-btn">
+          <fa-icon [icon]="trash"></fa-icon> List
+        </button>
+      </div>
+    </div>
+  </ng-container>
 
+  <ng-container *ngIf="listItems.length == 0">
+    <div class="center">
+      <h4>Your list is empty!</h4>
+      <h6>Add food to it now</h6>
+      <button routerLink="/home" class="btn btn-primary">
+        Order Your Food
+      </button>
+    </div>
+  </ng-container>
+</div>
