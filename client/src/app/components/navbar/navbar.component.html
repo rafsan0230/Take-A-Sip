@@ -1,26 +1,43 @@
-
- <ul >
-    <li *ngIf="loggedIn"><h2 class= "logo pointer"routerLink="/home"><fa-icon [icon]="mugIcon"></fa-icon>
-      Take A Sip</h2></li>
-    <li *ngIf="loggedIn" style="float:right" (click)="logout()"> <h4 routerLink="/login" class="pointer">LOG OUT</h4></li>
-    <li *ngIf="loggedIn" style="float:right"> <h4 class="list" > {{greetings}}</h4></li>
-    <li *ngIf="loggedIn" style="float:right" class="sidebar-opener" (click)="sidebarShow = !sidebarShow"> <h4 matBadge="{{listItems.length}}" matBadgePosition="before" matBadgeColor="warn" class="list"><fa-icon [icon]="clipList"></fa-icon> Order List</h4></li>
-    <li *ngIf="checkAdmin && loggedIn"> <h4  style="float:left;" class="kitchen" routerLink="/kitchen"> Kitchen </h4></li>
-    <!-- <li *ngIf="!checkAdmin && loggedIn" style="float:right" class="sidebar-opener" (click)="sidebarShow = !sidebarShow"> <h4 matBadge="{{listItems.length}}" matBadgePosition="before" matBadgeColor="warn" class="list"><fa-icon [icon]="clipList"></fa-icon> Order List</h4></li> -->
-
-  </ul>
-
+<ul>
+  <li *ngIf="loggedIn">
+    <h2 class="logo pointer" routerLink="/home">
+      <fa-icon [icon]="mugIcon"></fa-icon> Take A Sip
+    </h2>
+  </li>
+  <li *ngIf="loggedIn" style="float: right" (click)="logout()">
+    <h4 routerLink="/login" class="pointer" id="logout">LOG OUT</h4>
+  </li>
+  <li *ngIf="loggedIn" style="float: right">
+    <h4 class="list">{{ greetings }}</h4>
+  </li>
+  <li
+    *ngIf="loggedIn"
+    style="float: right"
+    class="sidebar-opener"
+    (click)="sidebarShow = !sidebarShow"
+  >
+    <h4
+      matBadge="{{ listItems.length }}"
+      matBadgePosition="before"
+      matBadgeColor="warn"
+      class="list"
+    >
+      <fa-icon [icon]="clipList"></fa-icon> Order List
+    </h4>
+  </li>
+  <li *ngIf="checkAdmin && loggedIn">
+    <h4 style="float: left" class="kitchen" routerLink="/kitchen">Kitchen</h4>
+  </li>
+  <!-- <li *ngIf="!checkAdmin && loggedIn" style="float:right" class="sidebar-opener" (click)="sidebarShow = !sidebarShow"> <h4 matBadge="{{listItems.length}}" matBadgePosition="before" matBadgeColor="warn" class="list"><fa-icon [icon]="clipList"></fa-icon> Order List</h4></li> -->
+</ul>
 
 <div class="sidebar-slider" [class.sidebar-slide-in]="sidebarShow">
-  <h2 style="margin: 1rem; font-family: sans-serif ;font-weight: normal;">Order List</h2>
-  <div
-      class="sidebar-close"
-      (click)="sidebarShow = !sidebarShow"
-  >
-      X
-  </div>
+  <h2 style="margin: 1rem; font-family: sans-serif; font-weight: normal">
+    Order List
+  </h2>
+  <div class="sidebar-close" (click)="sidebarShow = !sidebarShow">X</div>
 
   <div *ngIf="loggedIn" class="sidebar-content">
-     <app-list></app-list>
+    <app-list></app-list>
   </div>
 </div>

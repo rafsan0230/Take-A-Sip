@@ -5,14 +5,30 @@
       <th>Name</th>
       <th>Flavor</th>
       <th>Quantity Left</th>
+      <th>Controls</th>
+      <th *ngIf="addItem"></th>
     </thead>
     <tbody>
       <tr *ngFor="let inventoryData of inventoryDatas">
         <td>{{ inventoryData.name }}</td>
         <td>{{ inventoryData.selectedFlavor }}</td>
         <td>{{ inventoryData.remaining }}</td>
-        <td> <button type="button" (click)="addItemShow()">Add Quantity</button></td>
-        <td *ngIf="addItem"> <input type="number" value="" name="qty" id="qty" #box (keyup)="keyup(box.value)"> <button (click)="submitQty(inventoryData._id,box.value)">Submit</button> </td>
+        <td>
+          <button type="button" (click)="addItemShow()">Add Quantity</button>
+        </td>
+        <td *ngIf="addItem">
+          <input
+            type="number"
+            value=""
+            name="qty"
+            id="qty"
+            #box
+            (keyup)="keyup(box.value)"
+          />
+          <button (click)="submitQty(inventoryData._id, box.value)">
+            Submit
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

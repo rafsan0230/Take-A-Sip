@@ -1,26 +1,40 @@
-
 <div class="order-box">
-  <h2 style="color: #a55b41;" class="header">Enter Your Details</h2>
-	 <h3> <span>Name:</span> {{user.firstName}} {{user.lastName}}</h3>
-	 <h3> <span>Designation:</span> {{user.designation}}</h3>
-	<form  [formGroup]= "orderForm">
-		<div class="user-box">
-			<input type="text" name="room" formControlName="room" required>
-			<label> Room No & Details </label>
-		</div>
-		
-		<label style="color: #a55b41; font-size:large"> Ordering For: </label>
-		<div class="user-box">
-			<select class="select-section" name="order" formControlName="order">
-        		<option value="SELF">Self</option>
-        		<option value="CLIENT">Client</option>
-      		</select>
-		</div>
-	
-		<button class="btn"  mat-raised-button (click)="openDialog()" type="submit" class="btn btn-secondary">Submit</button>
-		<app-dialog *ngIf="isDialogVisible" (noEvent)="closeDialog($event)" (yesEvent)="dialogYes($event)"></app-dialog>
-	</form>
-</div>
+  <h2 style="color: #a55b41" class="header">Enter Your Details</h2>
+  <h3><span>Name:</span> {{ user.firstName }} {{ user.lastName }}</h3>
+  <h3><span>Designation:</span> {{ user.designation }}</h3>
+  <form [formGroup]="orderForm">
+    <div class="user-box">
+      <input
+        id="room"
+        type="text"
+        name="room"
+        formControlName="room"
+        required
+      />
+      <label> Room No & Details </label>
+    </div>
 
-  
-  
+    <label style="color: #a55b41; font-size: large"> Ordering For: </label>
+    <div class="user-box">
+      <select class="select-section" name="order" formControlName="order">
+        <option value="SELF">Self</option>
+        <option value="CLIENT">Client</option>
+      </select>
+    </div>
+
+    <button
+      id="submit-btn"
+      mat-raised-button
+      (click)="openDialog()"
+      type="submit"
+      class="btn btn-secondary"
+    >
+      Submit
+    </button>
+    <app-dialog
+      *ngIf="isDialogVisible"
+      (noEvent)="closeDialog($event)"
+      (yesEvent)="dialogYes($event)"
+    ></app-dialog>
+  </form>
+</div>
