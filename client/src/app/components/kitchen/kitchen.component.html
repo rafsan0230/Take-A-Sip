@@ -14,7 +14,7 @@
       #orderList="cdkDropList"
       [cdkDropListData]="orders"
       [cdkDropListConnectedTo]="[progressList]"
-      class="list"
+      class="list orders-list"
       (cdkDropListDropped)="drop($event)"
     >
       <div class="" *ngFor="let item of orders" cdkDrag>

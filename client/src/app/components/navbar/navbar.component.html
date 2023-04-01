@@ -4,7 +4,7 @@
       <fa-icon [icon]="mugIcon"></fa-icon> Take A Sip
     </h2>
   </li>
-  <li *ngIf="loggedIn" style="float: right" (click)="logout()">
+  <li *ngIf="loggedIn" style="float: right" class="logout" (click)="logout()">
     <h4 routerLink="/login" class="pointer" id="logout">LOG OUT</h4>
   </li>
   <li *ngIf="loggedIn" style="float: right">
