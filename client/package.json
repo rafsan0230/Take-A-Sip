@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.3",
     "@angular/animations": "^15.0.4",
     "@angular/cdk": "^15.0.4",
     "@angular/common": "^15.0.0",

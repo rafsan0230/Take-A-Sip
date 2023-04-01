@@ -64,7 +64,7 @@
       #progressList="cdkDropList"
       [cdkDropListData]="inProgress"
       [cdkDropListConnectedTo]="[readyList]"
-      class="list"
+      class="list in-progress-list"
       (cdkDropListDropped)="drop($event)"
     >
       <div class="" *ngFor="let item of inProgress" cdkDrag>
