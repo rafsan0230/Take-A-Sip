@@ -22,4 +22,14 @@ describe('starting e2e for ordering', () => {
     cy.get('#yes-btn').click();
     cy.url().should('contain', '/home');
   });
+
+  it('User cannot order items more than available', () => {
+    cy.get('.card').eq(0).click();
+    cy.contains('MILK').click();
+    cy.get('.qty').type('{selectall}');
+    cy.get('.qty').type('100');
+    cy.contains('ADD TO LIST').click();
+    cy.wait(1000);
+    cy.get('.toast-message').should('include.text', 'Please order below');
+  });
 });
